@@ -79,7 +79,7 @@ const AddBook = () => {
   };
 
   return (
-    <div className="my-44  flex flex-col">
+    <div className="h-screen justify-center flex flex-col">
       <h1 className="text-2xl font-bold font-sans mb-8 text-center">
         Add Book
       </h1>
@@ -89,7 +89,7 @@ const AddBook = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        <Form className="flex flex-col max-w-[70%] m-auto ">
+        <Form className="flex flex-col max-w-[70%] mx-auto ">
           <div className="mb-4 flex flex-col gap-4">
             <div className="flex flex-col   ">
               <label
