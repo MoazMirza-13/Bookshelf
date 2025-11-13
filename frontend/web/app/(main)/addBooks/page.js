@@ -29,6 +29,17 @@ const AddBook = () => {
   useEffect(() => {
     if (typeof document !== "undefined") {
       setIsGuest(document.cookie.includes("guest=true"));
+
+      // Cleanup expired guest books
+      const existingBooks =
+        JSON.parse(localStorage.getItem("guestBooks")) || [];
+      const now = Date.now();
+      const validBooks = existingBooks.filter((book) => book.expiry > now);
+
+      if (validBooks.length !== existingBooks.length) {
+        // Some expired books were removed
+        localStorage.setItem("guestBooks", JSON.stringify(validBooks));
+      }
     }
   }, []);
 
