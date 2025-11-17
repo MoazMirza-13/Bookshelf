@@ -37,9 +37,21 @@ const Home = () => {
           const data = response.data;
 
           if (isGuest) {
+            // Cleanup expired guest books
+            const existingBooks =
+              JSON.parse(localStorage.getItem("guestBooks")) || [];
+            const now = Date.now();
+            const validBooks = existingBooks.filter(
+              (book) => book.expiry > now
+            );
+
+            if (validBooks.length !== existingBooks.length) {
+              // Some expired books were removed
+              localStorage.setItem("guestBooks", JSON.stringify(validBooks));
+            }
+
             // Only first 5 dummy books and from local storage
             const dummyBooks = data.slice(0, 5);
-
             const localBooks =
               JSON.parse(localStorage.getItem("guestBooks")) || [];
             const mergedBooks = [...dummyBooks, ...localBooks];
